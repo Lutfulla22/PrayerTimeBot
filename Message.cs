@@ -31,21 +31,47 @@ namespace PrayerTime
                 {
                     await client.SendTextMessageAsync
                    (msg.Chat.Id, "Namoz Vaxtlarini blshni xoxlasangiz Lokatsia jonating");
+
+                    await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                        replyMarkup: new ReplyKeyboardMarkup()
+                        {
+                            OneTimeKeyboard = true,
+                            Keyboard = new List<List<KeyboardButton>>()
+                            {
+                               new List<KeyboardButton>()
+                               {
+                                   new KeyboardButton("1-1")
+                                   {
+                                       Text = "Send location",
+                                       RequestLocation = true,
+                                   },
+                                   new KeyboardButton()
+                                   {
+                                       Text = "Cancel"
+                                   }
+
+                               }
+                            }
+                        },
+                        text: "Share your location?");
+
                 }
-                await client.SendTextMessageAsync
-                      (msg.Chat.Id, "Qaysi Kunning taqvimi kerak", replyMarkup: GetButtons());
+                // await client.SendTextMessageAsync
+                //       (msg.Chat.Id, "Qaysi Kunning taqvimi kerak", replyMarkup: GetButtons());
             }
         }
 
-        private static IReplyMarkup GetButtons()
-        {
-            return new ReplyKeyboardMarkup
-            {
-                Keyboard = new List<List<KeyboardButton>>
-               {
-                   new List<KeyboardButton>{new KeyboardButton { Text = "Send a Location"}}
-               }
-            };
-        }
+        // private static IReplyMarkup GetButtons()
+        // {
+        //     return new ReplyKeyboardMarkup
+        //     {
+        //         Keyboard = new List<List<KeyboardButton>>
+        //        {
+        //            new List<KeyboardButton>{new KeyboardButton { Text = "Tashkent"}}
+        //        }
+        //     };
+        // }
     }
 }
